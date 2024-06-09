@@ -1,0 +1,80 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: homework_03/data_loaders/hw3_ingestion.py
+  downstream_blocks:
+  - prepare_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: hw3_ingestion
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: hw3_ingestion
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: homework_03/transformers/prepare_data.py
+  downstream_blocks:
+  - prepare_model
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: prepare_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - hw3_ingestion
+  uuid: prepare_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: homework_03/data_exporters/prepare_model.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: prepare_model
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - prepare_data
+  uuid: prepare_model
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-05-28 16:12:53.426441+00:00'
+data_integration: null
+description: we will read the March 2023 Yellow taxi trips data.
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: Taxi data preparing
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: taxi_data_preparing
+variables_dir: /home/src/mage_data/homework_03
+widgets: []

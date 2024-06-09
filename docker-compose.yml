@@ -18,11 +18,14 @@ services:
       - ~/.ssh:/root/.ssh:ro
       # Local machine’s GitHub configs
       - ~/.gitconfig:/root/.gitconfig:ro
+      # Local machine’s GitHub configs
+      - ~/Downloads/data:/app/local_data_store
     restart: on-failure:5
     networks:
       - app-network
     depends_on:
       - magic-database
+      - mlflow
     stdin_open: true # used for interactive debugging
     tty: true # used for interactive debugging
   magic-database:
@@ -36,6 +39,17 @@ services:
       # Custom database initialization scripts (optional).
       - ./scripts/database:/docker-entrypoint-initdb.d
     restart: always
+    networks:
+      - app-network
+    user: "501"
+  mlflow:
+    build:
+      context: .
+      dockerfile: mlflow.dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./mlflow:/home/mlflow/"
     networks:
       - app-network
 networks:
